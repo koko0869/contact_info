@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React  from "react";
 import { Link } from "react-router-dom";
 import BackMove from "../components/backMove";
 import SaveBtn from "../components/saveButton";
 
 const insertInfoPage = ({ onChangeName, onChangePhone, onSubmit }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [test, setTest] = useState(123);
+  // const [test, setTest] = useState(123);
   // setTest(1234);
-  console.log(test);
+  //console.log(test);
   return (
     <div>
       <h3>추가하기</h3>

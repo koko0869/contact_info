@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Route } from "react-router-dom";
 import InsertPage from "./pages/insertInfoPage";
 import MainPage from "./pages/mainPage";
+import FavoritePage from "./pages/favoritePage";
 
 const App = () => {
   const [infos, setInfos] = useState([
@@ -30,10 +31,11 @@ const App = () => {
       favorite: false
     }
   ]);
+  const allList = useRef(true);
   const nextId = useRef(5);
-
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [search, setSearch] = useState("");
 
   const onChangeName = e => {
     setName(e.target.value);
@@ -42,6 +44,9 @@ const App = () => {
   const onChangePhone = e => {
     setPhone(e.target.value);
     console.log(phone);
+  };
+  const onSearch = e => {
+    setSearch(e.target.value);
   };
 
   const onInsert = (name, phone) => {
@@ -60,6 +65,7 @@ const App = () => {
     setName("");
     setPhone("");
     e.preventDefault();
+    alert("저장되었습니다.");
   };
 
   //토글나중에
@@ -70,9 +76,44 @@ const App = () => {
       )
     );
   };
+  const onClickTotal = () => {
+    allList.current = true;
+    console.log(allList.current, "1");
+  };
 
   const onRemove = id => {
     setInfos(infos.filter(info => info.id !== id));
+  };
+
+  const onClickUpdate = idx => {
+    console.log(idx);
+    console.log(infos.length);
+    console.log(infos.slice(0, idx - 1));
+    console.log(infos.slice(idx, infos.length));
+    console.log([
+      ...infos.slice(0, idx - 1),
+      {
+        id: idx,
+        name: name,
+        phone: phone,
+        favorite: false
+      },
+      ...infos.slice(idx, infos.length)
+    ]);
+
+    setInfos([
+      ...infos.slice(0, idx - 1),
+      {
+        id: idx,
+        name: name,
+        phone: phone,
+        favorite: false
+      },
+      ...infos.slice(idx, infos.length)
+    ]);
+    //setInfos(infos.slice(0, idx - 1), ...infos);
+
+    alert("수정완료");
   };
 
   return (
@@ -82,7 +123,18 @@ const App = () => {
         path="/"
         exact
         render={() => (
-          <MainPage infos={infos} onRemove={onRemove} onFavorite={onFavorite} />
+          <MainPage
+            infos={infos}
+            onSearch={onSearch}
+            onRemove={onRemove}
+            onFavorite={onFavorite}
+            search={search}
+            allList={allList}
+            onClickTotal={onClickTotal}
+            onClickUpdate={onClickUpdate}
+            onChangeName={onChangeName}
+            onChangePhone={onChangePhone}
+          />
         )}
       />
       <Route
@@ -97,6 +149,11 @@ const App = () => {
             onSubmit={onSubmit}
           />
         )}
+      />
+      <Route
+        path="/favorite"
+        exact
+        render={() => <FavoritePage infos={infos} />}
       />
       {/* <Route path="/favorite" exact render= {() => (<Favorite/>)} */}
     </div>

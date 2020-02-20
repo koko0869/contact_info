@@ -1,6 +1,14 @@
 import React from "react";
+import Modal from "../components/modal";
 
-const infoItem = ({ info, onRemove, onFavorite }) => {
+const infoItem = ({
+  info,
+  onRemove,
+  onFavorite,
+  onChangeName,
+  onChangePhone,
+  onClickUpdate
+}) => {
   const { id, name, phone, favorite } = info;
   return (
     <div>
@@ -9,7 +17,17 @@ const infoItem = ({ info, onRemove, onFavorite }) => {
       <div>
         즐겨찾기 :{favorite ? "o" : "x"}
         <input type="checkBox" onClick={() => onFavorite(id)} />
-        <button onClick={() => onRemove(id)}>삭제</button>
+        <Modal
+          id={id}
+          name={name}
+          phone={phone}
+          onClickUpdate={onClickUpdate}
+          onChangeName={onChangeName}
+          onChangePhone={onChangePhone}
+        />
+        <div>
+          <button onClick={() => onRemove(id)}>삭제</button>
+        </div>
       </div>
     </div>
   );
