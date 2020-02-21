@@ -11,14 +11,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function InsertButton() {
+export default function FavoriteButton() {
   const classes = useStyles();
 
   return (
     <span className={classes.root}>
-      <Link to="/insert">
+      <Link to="/favorite">
         <Button variant="contained" color="primary">
-          추가
+          즐겨찾기
         </Button>
       </Link>
     </span>

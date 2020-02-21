@@ -1,7 +1,12 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 const saveButton = ({ onSubmit }) => {
-  return <button onClick={onSubmit}>저장</button>;
+  return (
+    <Button variant="outlined" size="small" onClick={onSubmit} color="primary">
+      등록
+    </Button>
+  );
 };
 
 export default saveButton;

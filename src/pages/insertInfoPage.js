@@ -1,26 +1,24 @@
-import React  from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import BackMove from "../components/backMove";
 import SaveBtn from "../components/saveButton";
+import TextField from "@material-ui/core/TextField";
 
 const insertInfoPage = ({ onChangeName, onChangePhone, onSubmit }) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  // const [test, setTest] = useState(123);
-  // setTest(1234);
-  //console.log(test);
   return (
     <div>
       <h3>추가하기</h3>
-      <div>
-        이름 : <input name="name" onChange={onChangeName} />
-      </div>
-      <div>
-        전화번호 : <input name="phone" onChange={onChangePhone} />
-      </div>
 
-      <Link to="/">
-        <BackMove />
-      </Link>
+      <div>
+        <TextField id="standard-basic" label="이름" onChange={onChangeName} />
+      </div>
+      <div>
+        <TextField
+          id="standard-basic"
+          label="전화번호"
+          onChange={onChangePhone}
+        />
+      </div>
+      <BackMove />
       <SaveBtn onSubmit={onSubmit} />
     </div>
   );

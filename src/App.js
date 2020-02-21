@@ -9,8 +9,8 @@ const App = () => {
     {
       id: 1,
       name: "test1",
-      phone: "010-1111-1111",
-      favorite: false
+      phone: "010-1234-1234",
+      favorite: true
     },
     {
       id: 2,
@@ -22,28 +22,32 @@ const App = () => {
       id: 3,
       name: "test3",
       phone: "010-3333-3333",
-      favorite: false
+      favorite: true
     },
     {
       id: 4,
       name: "test4",
       phone: "010-4444-4444",
+      favorite: true
+    },
+    {
+      id: 5,
+      name: "test5",
+      phone: "010-5555-5555",
       favorite: false
     }
   ]);
   const allList = useRef(true);
-  const nextId = useRef(5);
+  const nextId = useRef(6);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [search, setSearch] = useState("");
 
   const onChangeName = e => {
     setName(e.target.value);
-    console.log(name);
   };
   const onChangePhone = e => {
     setPhone(e.target.value);
-    console.log(phone);
   };
   const onSearch = e => {
     setSearch(e.target.value);
@@ -54,7 +58,7 @@ const App = () => {
       id: nextId.current,
       name,
       phone,
-      favorite: true
+      favorite: false
     };
     setInfos(infos.concat(info));
     nextId.current += 1;
@@ -68,7 +72,6 @@ const App = () => {
     alert("저장되었습니다.");
   };
 
-  //토글나중에
   const onFavorite = id => {
     setInfos(
       infos.map(info =>
@@ -78,29 +81,13 @@ const App = () => {
   };
   const onClickTotal = () => {
     allList.current = true;
-    console.log(allList.current, "1");
   };
 
   const onRemove = id => {
     setInfos(infos.filter(info => info.id !== id));
   };
 
-  const onClickUpdate = idx => {
-    console.log(idx);
-    console.log(infos.length);
-    console.log(infos.slice(0, idx - 1));
-    console.log(infos.slice(idx, infos.length));
-    console.log([
-      ...infos.slice(0, idx - 1),
-      {
-        id: idx,
-        name: name,
-        phone: phone,
-        favorite: false
-      },
-      ...infos.slice(idx, infos.length)
-    ]);
-
+  const onClickUpdate = (idx, handleClose) => {
     setInfos([
       ...infos.slice(0, idx - 1),
       {
@@ -111,13 +98,13 @@ const App = () => {
       },
       ...infos.slice(idx, infos.length)
     ]);
-    //setInfos(infos.slice(0, idx - 1), ...infos);
 
     alert("수정완료");
+    handleClose();
   };
 
   return (
-    <div>
+    <div align="center">
       <h1>연락처</h1>
       <Route
         path="/"
@@ -155,7 +142,6 @@ const App = () => {
         exact
         render={() => <FavoritePage infos={infos} />}
       />
-      {/* <Route path="/favorite" exact render= {() => (<Favorite/>)} */}
     </div>
   );
 };

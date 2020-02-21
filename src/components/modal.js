@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -39,9 +41,9 @@ export default function TransitionsModal({
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <Button size="small" color="primary" onClick={handleOpen}>
         수정
-      </button>
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -59,12 +61,27 @@ export default function TransitionsModal({
             <h2 id="transition-modal-title">수정하기</h2>
             <p id="transition-modal-description"></p>
             <div>
-              이름 : <input onChange={onChangeName} />
+              <TextField
+                id="standard-basic"
+                label="이름"
+                onChange={onChangeName}
+              />
             </div>
             <div>
-              번호 : <input onChange={onChangePhone} />
+              <TextField
+                id="standard-basic"
+                label="전화번호"
+                onChange={onChangePhone}
+              />
             </div>
-            <button onClick={() => onClickUpdate(id, name, phone)}>수정</button>
+            <Button
+              variant="outlined"
+              size="small"
+              color="primary"
+              onClick={() => onClickUpdate(id, handleClose)}
+            >
+              수정
+            </Button>
           </div>
         </Fade>
       </Modal>

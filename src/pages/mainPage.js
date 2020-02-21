@@ -1,7 +1,8 @@
 import React from "react";
-import InfoItem from "../components/infoItem";
-import { Link } from "react-router-dom";
 import SearchInput from "../components/searchInput";
+import InsertButton from "../components/insertButton";
+import FavoriteButton from "../components/favoriteButton";
+import ItemCard from "../components/itemCard";
 
 const mainPage = ({
   infos,
@@ -15,15 +16,15 @@ const mainPage = ({
 }) => {
   return (
     <div>
+      <FavoriteButton /> <InsertButton />
       <SearchInput onSearch={onSearch} keyword={search} />
-
       {
         (infos = infos
           .filter(info => {
             return info.name.indexOf(search) !== -1;
           })
           .map(info => (
-            <InfoItem
+            <ItemCard
               info={info}
               key={info.id}
               onRemove={onRemove}
@@ -34,13 +35,6 @@ const mainPage = ({
             />
           )))
       }
-
-      <Link to="/insert">
-        <h3>추가하기</h3>
-      </Link>
-      <Link to="/favorite">
-        <h3>즐겨찾기로 이동</h3>
-      </Link>
     </div>
   );
 };
