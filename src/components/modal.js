@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function TransitionsModal({
+export default React.memo(function TransitionsModal({
   id,
   name,
   phone,
@@ -87,4 +87,4 @@ export default function TransitionsModal({
       </Modal>
     </div>
   );
-}
+});

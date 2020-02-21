@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MediaCard({
+export default React.memo(function MediaCard({
   info,
   onRemove,
   onFavorite,
@@ -72,4 +72,4 @@ export default function MediaCard({
       </CardActions>
     </Card>
   );
-}
+});

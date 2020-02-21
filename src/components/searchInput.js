@@ -11,12 +11,11 @@
 // export default searchInput;
 
 import React from "react";
-import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import TextField from "@material-ui/core/TextField";
 
-export default function InputWithIcon({ onSearch }) {
+export default React.memo(function InputWithIcon({ onSearch }) {
   return (
     <div>
       <TextField
@@ -34,4 +33,4 @@ export default function InputWithIcon({ onSearch }) {
       />
     </div>
   );
-}
+});

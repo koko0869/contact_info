@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function InsertButton() {
+export default React.memo(function InsertButton() {
   const classes = useStyles();
 
   return (
@@ -23,4 +23,4 @@ export default function InsertButton() {
       </Link>
     </span>
   );
-}
+});

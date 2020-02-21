@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Route } from "react-router-dom";
 import InsertPage from "./pages/insertInfoPage";
 import MainPage from "./pages/mainPage";
@@ -43,26 +43,29 @@ const App = () => {
   const [phone, setPhone] = useState("");
   const [search, setSearch] = useState("");
 
-  const onChangeName = e => {
+  const onChangeName = useCallback(e => {
     setName(e.target.value);
-  };
-  const onChangePhone = e => {
+  }, []);
+  const onChangePhone = useCallback(e => {
     setPhone(e.target.value);
-  };
-  const onSearch = e => {
+  }, []);
+  const onSearch = useCallback(e => {
     setSearch(e.target.value);
-  };
+  }, []);
 
-  const onInsert = (name, phone) => {
-    const info = {
-      id: nextId.current,
-      name,
-      phone,
-      favorite: false
-    };
-    setInfos(infos.concat(info));
-    nextId.current += 1;
-  };
+  const onInsert = useCallback(
+    (name, phone) => {
+      const info = {
+        id: nextId.current,
+        name,
+        phone,
+        favorite: false
+      };
+      setInfos(infos.concat(info));
+      nextId.current += 1;
+    },
+    [infos]
+  );
 
   const onSubmit = e => {
     onInsert(name, phone);
