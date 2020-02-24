@@ -25,8 +25,9 @@ export default React.memo(function TransitionsModal({
   name,
   phone,
   onClickUpdate,
-  onChangeName,
-  onChangePhone
+  onChange
+  // onChangeName,
+  // onChangePhone
 }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -64,14 +65,16 @@ export default React.memo(function TransitionsModal({
               <TextField
                 id="standard-basic"
                 label="이름"
-                onChange={onChangeName}
+                name="name"
+                onChange={onChange}
               />
             </div>
             <div>
               <TextField
                 id="standard-basic"
                 label="전화번호"
-                onChange={onChangePhone}
+                name="phone"
+                onChange={onChange}
               />
             </div>
             <Button

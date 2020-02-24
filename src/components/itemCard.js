@@ -25,8 +25,7 @@ export default React.memo(function MediaCard({
   info,
   onRemove,
   onFavorite,
-  onChangeName,
-  onChangePhone,
+  onChange,
   onClickUpdate
 }) {
   const { id, name, phone, favorite } = info;
@@ -62,8 +61,7 @@ export default React.memo(function MediaCard({
             name={name}
             phone={phone}
             onClickUpdate={onClickUpdate}
-            onChangeName={onChangeName}
-            onChangePhone={onChangePhone}
+            onChange={onChange}
           />
         </Button>
         <Button size="small" color="primary" onClick={() => onRemove(id)}>

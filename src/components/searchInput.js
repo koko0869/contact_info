@@ -15,12 +15,12 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import TextField from "@material-ui/core/TextField";
 
-export default React.memo(function InputWithIcon({ onSearch }) {
+export default React.memo(function InputWithIcon({ onChange }) {
   return (
     <div>
       <TextField
         name="search"
-        onChange={onSearch}
+        onChange={onChange}
         label="검색"
         placeholder="이름"
         InputProps={{

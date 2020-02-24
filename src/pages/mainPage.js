@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import SearchInput from "../components/searchInput";
 import InsertButton from "../components/insertButton";
 import FavoriteButton from "../components/favoriteButton";
@@ -8,16 +8,20 @@ const mainPage = ({
   infos,
   onRemove,
   onFavorite,
-  onSearch,
+  onChange,
   search,
-  onClickUpdate,
-  onChangeName,
-  onChangePhone
+  onClickUpdate
 }) => {
+  function countUser(infos) {
+    return infos.length;
+  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const count = useMemo(() => countUser(infos), [infos]);
   return (
     <div>
       <FavoriteButton /> <InsertButton />
-      <SearchInput onSearch={onSearch} keyword={search} />
+      <SearchInput onChange={onChange} keyword={search} />
+      <h4>모든 연락처 : {count}</h4>
       {
         (infos = infos
           .filter(info => {
@@ -30,8 +34,9 @@ const mainPage = ({
               onRemove={onRemove}
               onFavorite={onFavorite}
               onClickUpdate={onClickUpdate}
-              onChangeName={onChangeName}
-              onChangePhone={onChangePhone}
+              // onChangeName={onChangeName}
+              // onChangePhone={onChangePhone}
+              onChange={onChange}
             />
           )))
       }

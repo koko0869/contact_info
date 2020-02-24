@@ -37,21 +37,23 @@ const App = () => {
       favorite: false
     }
   ]);
-  const allList = useRef(true);
   const nextId = useRef(6);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [search, setSearch] = useState("");
 
-  const onChangeName = useCallback(e => {
-    setName(e.target.value);
-  }, []);
-  const onChangePhone = useCallback(e => {
-    setPhone(e.target.value);
-  }, []);
-  const onSearch = useCallback(e => {
-    setSearch(e.target.value);
-  }, []);
+  const [inputs, setInputs] = useState({
+    name: "",
+    phone: "",
+    search: ""
+  });
+
+  const { name, phone, search } = inputs;
+
+  const onChange = e => {
+    const { value, name } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value
+    });
+  };
 
   const onInsert = useCallback(
     (name, phone) => {
@@ -69,8 +71,11 @@ const App = () => {
 
   const onSubmit = e => {
     onInsert(name, phone);
-    setName("");
-    setPhone("");
+    setInputs({
+      name: "",
+      phone: "",
+      search
+    });
     e.preventDefault();
     alert("저장되었습니다.");
   };
@@ -82,29 +87,32 @@ const App = () => {
       )
     );
   };
-  const onClickTotal = () => {
-    allList.current = true;
-  };
 
-  const onRemove = id => {
-    setInfos(infos.filter(info => info.id !== id));
-  };
+  const onRemove = useCallback(
+    id => {
+      setInfos(infos.filter(info => info.id !== id));
+    },
+    [infos]
+  );
 
-  const onClickUpdate = (idx, handleClose) => {
-    setInfos([
-      ...infos.slice(0, idx - 1),
-      {
-        id: idx,
-        name: name,
-        phone: phone,
-        favorite: false
-      },
-      ...infos.slice(idx, infos.length)
-    ]);
+  const onClickUpdate = useCallback(
+    (idx, handleClose) => {
+      setInfos([
+        ...infos.slice(0, idx - 1),
+        {
+          id: idx,
+          name: name,
+          phone: phone,
+          favorite: false
+        },
+        ...infos.slice(idx, infos.length)
+      ]);
 
-    alert("수정완료");
-    handleClose();
-  };
+      alert("수정완료");
+      handleClose();
+    },
+    [infos]
+  );
 
   return (
     <div align="center">
@@ -115,15 +123,11 @@ const App = () => {
         render={() => (
           <MainPage
             infos={infos}
-            onSearch={onSearch}
             onRemove={onRemove}
             onFavorite={onFavorite}
             search={search}
-            allList={allList}
-            onClickTotal={onClickTotal}
             onClickUpdate={onClickUpdate}
-            onChangeName={onChangeName}
-            onChangePhone={onChangePhone}
+            onChange={onChange}
           />
         )}
       />
@@ -133,8 +137,7 @@ const App = () => {
         render={() => (
           <InsertPage
             infos={infos}
-            onChangeName={onChangeName}
-            onChangePhone={onChangePhone}
+            onChange={onChange}
             onInsert={onInsert}
             onSubmit={onSubmit}
           />
